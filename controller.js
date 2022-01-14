@@ -67,7 +67,17 @@ exports.getDataStudents = async (req, res)=>{
 
 
 exports.login = (req, res)=> {
+    console.log(req.session);
+    console.log(req.user);
     res.sendFile(path.join(__dirname, "public", "formLogin.html"));
+}
+
+exports.loginFailure = (req, res)=>{
+    res.status(401).send("<p>You're not logged</p>")
+}
+
+exports.loginSuccess = (req, res)=>{
+    res.status(200).send("<p>You're logged</p>")
 }
 
 /*exports.checkLogin = async (req, res)=>{

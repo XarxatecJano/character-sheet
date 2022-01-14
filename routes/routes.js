@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const passport = require("passport");
 
 const controller = require('../controller.js');
 
@@ -10,8 +11,18 @@ router.get("/new-user", controller.getFormNewUser);
 router.post("/new-user", controller.insertNewUser);
 
 router.get("/login", controller.login);
-router.post("/login", controller.checkLogin);
+router.post("/login", passport.authenticate("local", { failureRedirect: '/login-failure', successRedirect: '/login-success' }));
 
+router.get("/login-failure", (req, res, next)=>{
+    console.log(req.session);
+    console.log(req.user);
+    next();
+} , controller.loginFailure);
+router.get("/login-success", (req, res, next)=>{
+    console.log(req.session);
+    console.log(req.user);
+    next();
+}, controller.loginSuccess);
 
 router.get("/new-student", controller.getFormNewStudent);
 router.post("/new-student", controller.insertNewStudent);

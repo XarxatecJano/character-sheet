@@ -1,15 +1,15 @@
 const query = require('./query.js');
 
 exports.findUserByUsername = async (username) => {
-    const querySQL = `SELECT * FROM user WHERE user = ${username}`;
+    const querySQL = `SELECT * FROM user WHERE user = "${username}"`;
     const results =  await query.query(querySQL);
-    return JSON.stringify(results[0]);
+    return results;
 }
 
 exports.findUserById = async (id) => {
     const querySQL = `SELECT * FROM user WHERE id = ${id}`;
     const results =  await query.query(querySQL);
-    return JSON.stringify(results[0]);
+    return results;
 }
 
 exports.insertNewUser = async (userData, hashData) => {
