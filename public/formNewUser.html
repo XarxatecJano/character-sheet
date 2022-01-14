@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creación  de nuevo usuario</title>
+</head>
+<body>
+    <form name="new-user" action="/new-user" method="POST">
+        <p>
+            <label for="inputUser">Usuario: </label>
+            <input id="inputUSer" type="text" name="iUser" required>
+        </p>
+        <p>
+            <label for="inputPassword">Password: </label>
+            <input id="inputPassword" type="text" name="iPwd" required>
+        </p>
+        <p>
+            <select id="selectRole" name="iRole">
+                <option value="student">Estudiante</option>
+                <option value="member">Socio</option>
+                <option value="admin">Administrador</option>
+            </select>
+        </p>
+        <p>
+            <input id="inputSubmit" type="submit">
+        </p>
+    </form>
+</body>
+</html>

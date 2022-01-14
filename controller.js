@@ -1,5 +1,27 @@
 const path = require('path');
 const model = require('./model/model.js');
+const generatePassword = require("./lib/passwordUtils").generatePassword;
+
+exports.getFormNewUser = (req, res)=>{
+    res.sendFile(path.join(__dirname, "public", "formNewUser.html"));
+}
+
+exports.insertNewUser = async (req, res)=>{
+    try {
+        const hashData = generatePassword(req.body.iPwd);
+        const result = await model.insertNewUser(req.body, hashData);
+        if (result.affectedRows >0) {
+            res.send("Usuario registrado con éxito");
+        } else {
+            res.send("No se registró el usuario correctamente");
+        }
+    } catch (err) {
+        res.status(400).send(err);
+    }
+    
+    
+
+}
 
 exports.getFormNewStudent = (req, res)=>{
     res.sendFile(path.join(__dirname, "public", "formEntrada.html"));
@@ -45,11 +67,10 @@ exports.getDataStudents = async (req, res)=>{
 
 
 exports.login = (req, res)=> {
-    console.log(req.session);
     res.sendFile(path.join(__dirname, "public", "formLogin.html"));
 }
 
-exports.checkLogin = async (req, res)=>{
+/*exports.checkLogin = async (req, res)=>{
     const result = await model.checkLogin(req.body.iUser, req.body.iPwd);
     let message = {};
     let loginCode = 0;//no existe el usuario
@@ -69,4 +90,4 @@ exports.checkLogin = async (req, res)=>{
         req.session.role = result[0].role;
         res.send("Login OK");    
     }
-}
+}*/

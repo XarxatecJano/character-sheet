@@ -1,5 +1,23 @@
 const query = require('./query.js');
 
+exports.findUserByUsername = async (username) => {
+    const querySQL = `SELECT * FROM user WHERE user = ${username}`;
+    const results =  await query.query(querySQL);
+    return JSON.stringify(results[0]);
+}
+
+exports.findUserById = async (id) => {
+    const querySQL = `SELECT * FROM user WHERE id = ${id}`;
+    const results =  await query.query(querySQL);
+    return JSON.stringify(results[0]);
+}
+
+exports.insertNewUser = async (userData, hashData) => {
+    const querySQL = `INSERT INTO user(user, hashCode, salt, role) VALUES ("${userData.iUser}", "${hashData.hash}", "${hashData.salt}", "${userData.iRole}")`;
+    const results = await query.query(querySQL);
+    return results;
+}
+
 exports.insertNewStudent = async (data) =>{
     const querySQL = `INSERT INTO student(name, first_surname, second_surname, telephone, email, description) VALUES ("${data.iName}", "${data.iFirstSurname}","${data.iSecondSurname}","${data.iPhone}","${data.iEmail}","${data.iDescription}")`;
     const results =  await query.query(querySQL);

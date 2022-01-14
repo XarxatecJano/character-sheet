@@ -6,6 +6,8 @@ const controller = require('../controller.js');
 const router = express.Router();
 
 
+router.get("/new-user", controller.getFormNewUser);
+router.post("/new-user", controller.insertNewUser);
 
 router.get("/login", controller.login);
 router.post("/login", controller.checkLogin);
