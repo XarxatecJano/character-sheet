@@ -4,6 +4,7 @@ const hb = expressHandlebars.create({defaultLayout: "main"});
 const path = require('path');
 const router = require('./routes/routes.js');
 const config = require("./config/configDb.js");
+const passport = require("passport");
 
 const { credentials } = require("./config/configEnv");
 
@@ -38,6 +39,11 @@ app.use(expressSession({
 }))
 
 app.use(express.static(path.join( __dirname, 'public')));
+
+require("./config/passport");
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/", router); 
 

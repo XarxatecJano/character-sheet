@@ -1,5 +1,16 @@
 const path = require('path');
 const model = require('./model/model.js');
+const pwd = require("./lib/passwordUtils");
+
+exports.register = (req, res)=>{
+    res.sendFile(path.join(__dirname, "public", "formRegister.html"));
+}
+
+exports.saveNewUser  = async (req, res)=>{
+    const generatedHash = pwd.generatePassword(req.body.iPassword);
+    const result = await model.registerNewUser(req.body, generatedHash);
+    res.send("<p>El usuario se ha registrado con éxito</p>");
+}
 
 exports.getFormNewStudent = (req, res)=>{
     res.sendFile(path.join(__dirname, "public", "formEntrada.html"));
@@ -49,7 +60,7 @@ exports.login = (req, res)=> {
     res.sendFile(path.join(__dirname, "public", "formLogin.html"));
 }
 
-exports.checkLogin = async (req, res)=>{
+/*exports.checkLogin = async (req, res)=>{
     const result = await model.checkLogin(req.body.iUser, req.body.iPwd);
     let message = {};
     let loginCode = 0;//no existe el usuario
@@ -69,4 +80,4 @@ exports.checkLogin = async (req, res)=>{
         req.session.role = result[0].role;
         res.send("Login OK");    
     }
-}
+}*/
